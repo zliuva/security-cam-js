@@ -1,0 +1,33 @@
+<html ng-app="app">
+  <head>
+    <title>Test</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js"></script>
+    <script type="text/javascript" src="js/canvas-to-blob.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body ng-controller="controller">
+    <div ng-show="getUserMediaSupported">
+      <div>
+      	<p>Click on the video to take a snapshot</p>
+        <video id="cam" ng-click="snapshot();" autoplay></video>
+        <canvas id="buffer" width="640" height="480"></canvas>
+      </div>
+      <div>
+        <input type="checkbox" id="checkbox-autosave" ng-model="settings.autosave" /><label for="checkbox-autosave">Automatically takes snapshot when motion detected</label><br />
+        After taking a snapshot: <br />
+        <input type="checkbox" id="checkbox-dropbox" ng-model="settings.snapshotActions.saveToDropbox" /><label for="checkbox-dropbox">Save to Dropbox</label><span ng-show="dropbox.isAuthenticated()"> (Signed in as {{dropboxAccountInfo.name}}, <a href='' ng-click="unlinkDropbox();">Sign out</a>)</span><br />
+        <input type="checkbox" id="checkbox-mms" ng-model="settings.snapshotActions.sendMms" /><label for="checkbox-mms">Send MMS</label>
+      </div>
+    </div>
+    <div ng-hide="getUserMediaSupported">
+      <p>Your browser does not support access to web cam</p>
+    </div>
+    <div ng-show="errorMessage">
+      {{errorMessage}}
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
